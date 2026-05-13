@@ -1,0 +1,17 @@
+name: CI
+on: push
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build
+        run: cargo build
+      - name: Run tests
+        run: bash test.bash
