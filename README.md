@@ -69,3 +69,8 @@ Print this message or the help of the given subcommand(s)
   [COMMAND]...  Print help for the subcommand(s)
 
 ```
+
+## References
+- https://github.com/dezoito/rust-todo-list
+- https://github.com/sioodmy/todo
+- https://github.com/GothenburgBitFactory/taskwarrior
