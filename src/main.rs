@@ -36,7 +36,7 @@ fn main() -> rusqlite::Result<()> {
         )
         .subcommand(
             Command::new("add")
-                .about("Add a new task")
+                .about("Add a new task. Example: todo-cli-rs add 'Task title'")
                 .arg(arg!(<TITLE> "task title").required(true))
                 .arg(arg!(-n --note <NOTE> "task description").required(false))
                 .arg(
@@ -60,7 +60,7 @@ fn main() -> rusqlite::Result<()> {
         )
         .subcommand(
             Command::new("edit")
-                .about("Edit task")
+                .about("Edit task. Example: todo-cli-rs edit 1 -t 'Task title'")
                 .arg(
                     arg!(<ID> "set ID for edit task")
                         .required(true)
@@ -94,11 +94,13 @@ fn main() -> rusqlite::Result<()> {
                 ),
         )
         .subcommand(
-            Command::new("rm").about("remove task").arg(
-                arg!(<ID> "remove task by ID")
-                    .required(true)
-                    .value_parser(value_parser!(i64)),
-            ),
+            Command::new("rm")
+                .about("remove task. Example: todo-cli-rs rm 1")
+                .arg(
+                    arg!(<ID> "remove task by ID")
+                        .required(true)
+                        .value_parser(value_parser!(i64)),
+                ),
         )
         .subcommand(
             Command::new("find")

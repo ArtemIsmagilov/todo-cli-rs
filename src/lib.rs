@@ -136,6 +136,17 @@ pub fn cmd_edit(
     priority: Option<&String>,
     completed: Option<&bool>,
 ) -> rusqlite::Result<()> {
+    if title.is_none()
+        && note.is_none()
+        && due.is_none()
+        && subtask.is_none()
+        && group_name.is_none()
+        && priority.is_none()
+        && completed.is_none()
+    {
+        println!("empty edit");
+        return Ok(());
+    }
     let conn = get_conn()?;
     conn.execute(
         "UPDATE tasks SET
