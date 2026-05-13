@@ -21,8 +21,8 @@ check() {
   fi
 }
 
-cargo build --quiet
-$BIN drop
+cargo build
+$BIN drop 2>&1
 
 echo "=== add ==="
 check "add 1" "Task added" "$($BIN add "Grocery Shopping" -n "Buy milk and eggs" -d 2026-12-31 -g "Personal" -p high 2>&1)"
