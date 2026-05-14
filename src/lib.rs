@@ -1,3 +1,5 @@
+use std::fs;
+
 use jiff::civil::{Date, DateTime};
 use rusqlite::Connection;
 use super_table::Table;
@@ -16,9 +18,10 @@ struct Task {
 }
 
 fn get_conn() -> rusqlite::Result<Connection> {
-    let conn = Connection::open("todo.db")?;
-    conn.execute(
-        "CREATE TABLE IF NOT EXISTS tasks(
+    if !fs::exists("todo.db").unwrap() {
+        let conn = Connection::open("todo.db")?;
+        conn.execute(
+            "CREATE TABLE IF NOT EXISTS tasks(
 id INTEGER PRIMARY KEY AUTOINCREMENT
 , title TEXT NOT NULL
 , note TEXT
@@ -30,9 +33,12 @@ id INTEGER PRIMARY KEY AUTOINCREMENT
 , created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 , updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )",
-        (),
-    )?;
-    Ok(conn)
+            (),
+        )?;
+        Ok(conn)
+    } else {
+        Ok(Connection::open("todo.db")?)
+    }
 }
 
 pub fn cmd_list(sort: Option<&String>, order: Option<&String>) -> rusqlite::Result<()> {
@@ -260,7 +266,7 @@ pub fn cmd_find(
 }
 
 pub fn cmd_drop() {
-    match std::fs::remove_file("todo.db") {
+    match fs::remove_file("todo.db") {
         Ok(()) => println!("Tasks dropped"),
         Err(e) => println!("Tasks aleady dropped. {:?}", e),
     }
