@@ -105,14 +105,14 @@ fn main() -> rusqlite::Result<()> {
         .subcommand(
             Command::new("find")
                 .about("Find tasks. Example: todo-cli-rs find --id 1 --title text")
-                .arg(arg!(--id <PATTERN> "search by id").required(false))
-                .arg(arg!(--title <PATTERN> "search by title").required(false))
-                .arg(arg!(--note <PATTERN> "search by note").required(false))
-                .arg(arg!(--due <PATTERN> "search by due date").required(false))
-                .arg(arg!(--subtask <PATTERN> "search by subtask id").required(false))
-                .arg(arg!(--group_name <PATTERN> "search by group").required(false))
-                .arg(arg!(--priority <PATTERN> "search by priority").required(false))
-                .arg(arg!(--completed <PATTERN> "search by completed status").required(false)),
+                .arg(arg!(-i --id <PATTERN> "search by id").required(false))
+                .arg(arg!(-t --title <PATTERN> "search by title").required(false))
+                .arg(arg!(-n --note <PATTERN> "search by note").required(false))
+                .arg(arg!(-d --due <PATTERN> "search by due date").required(false))
+                .arg(arg!(-s --subtask <PATTERN> "search by subtask id").required(false))
+                .arg(arg!(-g --group_name <PATTERN> "search by group").required(false))
+                .arg(arg!(-p --priority <PATTERN> "search by priority").required(false))
+                .arg(arg!(-c --completed <PATTERN> "search by completed status").required(false)),
         )
         .subcommand(Command::new("drop").about("Drop the tasks. Example: todo-cli-rs drop"))
         .flatten_help(true)
